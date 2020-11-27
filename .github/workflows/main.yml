@@ -2,7 +2,7 @@
 
 name: electron builder
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -23,14 +23,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout
         uses: actions/checkout@v2
-      
+
       - name: setup node
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
       - name: installing deps
+        uses: webfactory/ssh-agent@v0.4.1
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
         run: yarn install
-        
+
       - name: running electron-builder
         run: yarn release
