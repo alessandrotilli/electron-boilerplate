@@ -5674,9 +5674,9 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-"sqlite3-offline@git+ssh://git@github.com/alessandrotilli/sqlite3-offline.git#develop":
+sqlite3-offline@alessandrotilli/sqlite3-offline.git#develop:
   version "4.3.1"
-  resolved "git+ssh://git@github.com/alessandrotilli/sqlite3-offline.git#6a0557f4ed4e47e1a9d180eda89f65fc3137584e"
+  resolved "https://codeload.github.com/alessandrotilli/sqlite3-offline/tar.gz/6a0557f4ed4e47e1a9d180eda89f65fc3137584e"
 
 sshpk@^1.7.0:
   version "1.16.1"
