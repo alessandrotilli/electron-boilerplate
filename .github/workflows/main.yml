@@ -29,10 +29,12 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: installing deps
+      - name: setting ssh key
         uses: webfactory/ssh-agent@v0.4.1
-          with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: installing deps
         run: yarn install
 
       - name: running electron-builder
