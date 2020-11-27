@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_mac:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-latest, macOS-10.15]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
