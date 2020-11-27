@@ -10,7 +10,10 @@ on:
 
 jobs:
   build_mac:
-    runs-on: macos-10.15
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -31,32 +34,4 @@ jobs:
         run: yarn install
 
       - name: running electron-builder
-        run: |
-          yarn build
-          yarn release:mac
-
-  build_win_linux:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: setting ssh key
-        uses: webfactory/ssh-agent@v0.4.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: installing deps
-        run: yarn install
-
-      - name: running electron-builder
-        run: |
-          yarn build
-          yarn release
+        run: yarn release
