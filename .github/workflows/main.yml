@@ -63,4 +63,6 @@ jobs:
         with:
           name: installers
           path: |
-            dist/**/*.{dmg,exe,deb}
+            dist/*/*.dmg
+            dist/*/*.exe
+            dist/*/*.deb
