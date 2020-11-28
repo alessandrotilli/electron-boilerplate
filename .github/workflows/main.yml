@@ -55,7 +55,7 @@ jobs:
         run: yarn release:linux
 
       - if: matrix.os == 'macOS-10.15'
-        name: build win
+        name: build mac
         run: yarn release:mac
       
       - name: upload artifacts
