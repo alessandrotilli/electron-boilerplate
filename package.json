@@ -16,8 +16,10 @@
     "e2e": "mocha temp/e2e.js --require source-map-support/register",
     "test": "npm run unit && npm run e2e",
     "start": "node build/start.js",
-    "prerelease": "webpack --config=build/webpack.app.config.js --env=production",
-    "release": "electron-builder --config config/electron-builder.js"
+    "build": "webpack --config=build/webpack.app.config.js --env=production",
+    "release:win": "electron-builder --config config/electron-builder.js --win",
+    "release:mac": "electron-builder --config config/electron-builder.js --mac",
+    "release:linux": "electron-builder --config config/electron-builder.js --linux"
   },
   "dependencies": {
     "fs-extra": "*",

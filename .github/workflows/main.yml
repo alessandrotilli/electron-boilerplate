@@ -42,5 +42,17 @@ jobs:
       - name: installing deps
         run: yarn install
 
-      - name: running electron-builder
-        run: yarn release
+      - name: build js
+        run: yarn build
+
+      - name: build win
+        if: ${{ matrix.os }} == 'ubuntu-latest'
+        run: yarn release:win
+
+      - name: build linux
+        if: ${{ matrix.os }} == 'ubuntu-latest'
+        run: yarn release:linux
+
+      - name: build win
+        if: ${{ matrix.os }} == 'macOS-10.15'
+        run: yarn release:mac
