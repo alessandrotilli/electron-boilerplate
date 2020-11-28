@@ -22,12 +22,12 @@ jobs:
 
       - name: install wine
         if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: |
-          sudo dpkg --add-architecture i386
-          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt install --install-recommends winehq-stable
+          run: |
+            sudo dpkg --add-architecture i386
+            wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+            sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+            sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+            sudo apt install --install-recommends winehq-stable
 
       - name: setup node
         uses: actions/setup-node@v1
@@ -47,12 +47,12 @@ jobs:
 
       - name: build win
         if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: yarn release:win
+          run: yarn release:win
 
       - name: build linux
         if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: yarn release:linux
+          run: yarn release:linux
 
       - name: build win
         if: ${{ matrix.os }} == 'macOS-10.15'
-        run: yarn release:mac
+          run: yarn release:mac
