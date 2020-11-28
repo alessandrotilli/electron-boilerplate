@@ -20,9 +20,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: install wine
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-          run: |
+      
+      - if: matrix.os == 'ubuntu-latest'
+        name: install wine
+        run: |
             sudo dpkg --add-architecture i386
             wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
             sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
@@ -45,14 +46,14 @@ jobs:
       - name: build js
         run: yarn build
 
-      - name: build win
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-          run: yarn release:win
+      - if: matrix.os == 'ubuntu-latest'
+        name: build win
+        run: yarn release:win
 
-      - name: build linux
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-          run: yarn release:linux
+      - if: matrix.os == 'ubuntu-latest'
+        name: build linux
+        run: yarn release:linux
 
-      - name: build win
-        if: ${{ matrix.os }} == 'macOS-10.15'
-          run: yarn release:mac
+      - if: matrix.os == 'macOS-10.15'
+        name: build win
+        run: yarn release:mac
