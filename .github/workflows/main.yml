@@ -57,3 +57,10 @@ jobs:
       - if: matrix.os == 'macOS-10.15'
         name: build win
         run: yarn release:mac
+      
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: installers
+          path: |
+            dist/**/*.{dmg,exe,deb}
