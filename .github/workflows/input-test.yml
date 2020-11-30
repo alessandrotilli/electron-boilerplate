@@ -1,0 +1,20 @@
+name: input test
+on: 
+  workflow_dispatch:
+    inputs:
+      flavour:
+        description: 'Flavour ( BSMART | DEA | ecc...')     
+        required: true
+        default: 'BSMART'
+      channel:
+        description: 'Channel ( production_v2 | production | development | cd | usb )'
+        required: true
+        default: 'development'
+        
+jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Log level: ${{ github.event.inputs.flavour }}"
+        echo "Tags: ${{ github.event.inputs.type }}"
