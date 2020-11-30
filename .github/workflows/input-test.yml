@@ -2,11 +2,11 @@ name: input test
 on: 
   workflow_dispatch:
     inputs:
-      flavour:
+      app_flavour:
         description: 'Flavour ( BSMART | DEA | ecc...)'
         required: true
         default: 'BSMART'
-      channel:
+      app_channel:
         description: 'Channel ( production_v2 | production | development | cd | usb )'
         required: true
         default: 'development'
@@ -16,5 +16,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "App flavour ${{ github.event.inputs.flavour }}"
-        echo "App type: ${{ github.event.inputs.type }}"
+        echo "App flavour ${{ github.event.inputs.app_flavour }}"
+        echo "App channel: ${{ github.event.inputs.app_channel }}"
