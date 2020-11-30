@@ -16,5 +16,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Log level: ${{ github.event.inputs.flavour }}"
-        echo "Tags: ${{ github.event.inputs.type }}"
+        echo "App flavour ${{ github.event.inputs.flavour }}"
+        echo "App type: ${{ github.event.inputs.type }}"
