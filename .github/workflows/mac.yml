@@ -1,0 +1,56 @@
+name: build on mac
+
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ release/* ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macOS-10.15
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout
+        uses: actions/checkout@v2
+
+      
+      - name: install wine
+        run: brew cask install wine-stable
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: setting ssh key
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: installing deps
+        run: yarn install
+
+      - name: build js
+        run: yarn build
+
+      - name: build win
+        run: yarn release:win
+
+      - name: build linux
+        run: yarn release:linux
+
+      - name: build mac
+        run: yarn release:mac
+      
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: installers
+          path: |
+            dist/*/*.dmg
+            dist/*/*.exe
+            dist/*/*.deb
