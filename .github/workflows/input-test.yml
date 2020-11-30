@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       flavour:
-        description: 'Flavour ( BSMART | DEA | ecc...')     
+        description: 'Flavour ( BSMART | DEA | ecc...)'
         required: true
         default: 'BSMART'
       channel:
