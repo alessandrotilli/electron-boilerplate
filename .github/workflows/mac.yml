@@ -19,7 +19,9 @@ jobs:
 
       
       - name: install wine
-        run: brew cask install wine-stable
+        run: |
+          brew cask install xquartz
+          brew cask install wine-stable
 
       - name: setup node
         uses: actions/setup-node@v1
