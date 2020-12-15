@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-10.15]
+        os: [macOS-10.15]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
