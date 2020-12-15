@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-10.15]
+        os: [ubuntu-latest]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
 
       
-      - if: matrix.os == 'ubuntu-latest'
+      - if: ${{ false }} # matrix.os == 'ubuntu-latest'
         name: install wine
         run: |
             sudo dpkg --add-architecture i386
@@ -61,7 +61,7 @@ jobs:
       - name: build js
         run: yarn build
 
-      - if: matrix.os == 'ubuntu-latest'
+      - if: ${{ false }} # matrix.os == 'ubuntu-latest'
         name: build win
         run: yarn release:win
 
