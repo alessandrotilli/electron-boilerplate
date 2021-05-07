@@ -24,7 +24,7 @@
   "dependencies": {
     "fs-extra": "*",
     "sequelize": "^5.2.12",
-    "sqlite3-offline": "git+ssh://git@github.com/alessandrotilli/sqlite3-offline.git#develop"
+    "sqlite3-offline": "git+https://github.com/alessandrotilli/sqlite3-offline.git#develop"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
