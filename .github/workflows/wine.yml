@@ -34,4 +34,4 @@ jobs:
       - name: build and package
         run: |
           yarn build
-          yarn release:win
+          yarn package -wl
