@@ -17,9 +17,7 @@
     "test": "npm run unit && npm run e2e",
     "start": "node build/start.js",
     "build": "webpack --config=build/webpack.app.config.js --env=production",
-    "release:win": "electron-builder --config config/electron-builder.js --win",
-    "release:mac": "electron-builder --config config/electron-builder.js --mac",
-    "release:linux": "electron-builder --config config/electron-builder.js --linux"
+    "package": "electron-builder --config config/electron-builder.js"
   },
   "dependencies": {
     "fs-extra": "*",
