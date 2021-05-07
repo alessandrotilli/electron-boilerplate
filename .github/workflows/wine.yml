@@ -24,7 +24,7 @@ jobs:
           sudo dpkg --add-architecture i386
           wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
           sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo aptitude install --install-recommends winehq-stable
+          sudo apt install --install-recommends winehq-stable
 
       # Runs a single command using the runners shell
       - name: yarn install
