@@ -45,7 +45,7 @@ jobs:
             },
             {
               "name": "windows-2022",
-              "skip": "${{ needs.fetch.outputs.skip_win }}",
+              "skip": "${{ needs.fetch.outputs.skip_win }}"
             }
           ]
           EOF
