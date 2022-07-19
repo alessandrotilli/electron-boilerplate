@@ -52,7 +52,7 @@ jobs:
           )
           FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) | .name ]')
           echo $FILTERED_JSON
-          echo "::set-output name=matrix_json::{\"include\":$(echo $FILTERED_JSON)}\"
+          echo "::set-output name=matrix_json::{\"include\":$(echo $FILTERED_JSON)}"
         
     outputs:
       matrix_json: ${{ steps.matrix.outputs.matrix_json }}
