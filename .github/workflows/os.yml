@@ -71,7 +71,7 @@ jobs:
       fail-fast: false
       matrix:
         os: >-
-          ${{fromJson(needs.setMatrix.outputs.matrix_json)}}
+          ${{fromJson(needs.setMatrix.outputs.matrix_json).include}}
 
     steps:
       - run: echo ciao
