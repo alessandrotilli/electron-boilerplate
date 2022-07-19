@@ -20,6 +20,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: reconfigure
+        run: |
+          sudo dpkg --configure -a
+
       - name: install wine
         run: |
           sudo dpkg --add-architecture i386 
