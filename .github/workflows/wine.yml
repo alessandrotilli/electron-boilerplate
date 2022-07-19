@@ -29,7 +29,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update
-          sudo apt-get install --install-recommends -y wine-stable
+          sudo apt-get install --install-recommends wine32 wine64
       
 #       - name: install wine
 #         run: |
