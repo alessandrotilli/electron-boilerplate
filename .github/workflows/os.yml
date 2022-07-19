@@ -1,0 +1,65 @@
+name: os test
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_platforms:
+        required: true
+        default: 'wml'
+        
+jobs:
+  fetch:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set outputs
+        id: env_props
+        run: |
+          echo "::set-output name=skip_win::${{ contains(github.event.inputs.app_platforms, 'w') == false }}"
+          echo "::set-output name=skip_mac::${{ contains(github.event.inputs.app_platforms, 'm') == false }}"
+          echo "::set-output name=skip_linux::${{ contains(github.event.inputs.app_platforms, 'l') == false }}"
+
+    outputs:
+      skip_win: ${{ steps.env_props.outputs.skip_win }}
+      skip_mac: ${{ steps.env_props.outputs.skip_mac }}
+      skip_linux: ${{ steps.env_props.outputs.skip_linux }}
+      
+  setMatrix:
+    needs: [fetch]
+    runs-on: ubuntu-20.04
+    steps:
+      run: |
+        MATRIX_JSON=$(cat << EOF
+        [
+          {
+            "runs_on": "ubuntu-20.04",
+            "skip": "{{ needs.fetch.outputs.skip_linux }}",
+            "runOn": "always"
+          },
+          {
+            "runs_on": "macOS-10.15",
+            "skip": "{{ needs.fetch.outputs.skip_mac }}",
+            "runOn": "always"
+          },
+          {
+            "runs_on": "windows-2022",
+            "skip": "{{ needs.fetch.outputs.skip_win }}",
+            "runOn": "always"
+          }
+        ]
+        EOF
+        )
+        echo "::set-output name=matrix_json::$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')"
+
+
+  package:
+    needs: [ fetch, setMatrix ]
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: >-
+          ${{fromJson(needs.setMatrix.outputs.matrix_json)}}
+
+    steps:
+      run: echo ciao
