@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update
-          sudo apt install wine64 wine32
+          sudo apt install libwine:i386 wine64 wine32
       
 #       - name: install wine
 #         run: |
