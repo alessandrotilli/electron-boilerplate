@@ -32,25 +32,22 @@ jobs:
           MATRIX_JSON=$(cat << EOF
           [
             {
-              "runs_on": "ubuntu-20.04",
-              "skip": "${{ needs.fetch.outputs.skip_linux }}",
-              "runOn": "always"
+              "name": "ubuntu-20.04",
+              "skip": "${{ needs.fetch.outputs.skip_linux }}"
             },
             {
-              "runs_on": "macOS-10.15",
-              "skip": "${{ needs.fetch.outputs.skip_mac }}",
-              "runOn": "always"
+              "name": "macOS-10.15",
+              "skip": "${{ needs.fetch.outputs.skip_mac }}"
             },
             {
-              "runs_on": "windows-2022",
+              "name": "windows-2022",
               "skip": "${{ needs.fetch.outputs.skip_win }}",
-              "runOn": "always"
             }
           ]
           EOF
           )
-          FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')
-          echo "::set-output name=matrix_json::{\"include\":$(echo $FILTERED_JSON)}"
+          FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) | .name ]')
+          echo "::set-output name=matrix_json::$(echo $FILTERED_JSON)"
         
     outputs:
       matrix_json: ${{ steps.matrix.outputs.matrix_json }}
