@@ -32,17 +32,17 @@ jobs:
           [
             {
               "runs_on": "ubuntu-20.04",
-              "skip": "{{ needs.fetch.outputs.skip_linux }}",
+              "skip": "${{ needs.fetch.outputs.skip_linux }}",
               "runOn": "always"
             },
             {
               "runs_on": "macOS-10.15",
-              "skip": "{{ needs.fetch.outputs.skip_mac }}",
+              "skip": "${{ needs.fetch.outputs.skip_mac }}",
               "runOn": "always"
             },
             {
               "runs_on": "windows-2022",
-              "skip": "{{ needs.fetch.outputs.skip_win }}",
+              "skip": "${{ needs.fetch.outputs.skip_win }}",
               "runOn": "always"
             }
           ]
