@@ -27,7 +27,8 @@ jobs:
     needs: [fetch]
     runs-on: ubuntu-20.04
     steps:
-      - run: |
+      - id: matrix 
+        run: |
           MATRIX_JSON=$(cat << EOF
           [
             {
@@ -50,16 +51,18 @@ jobs:
           )
           FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')
           echo "::set-output name=matrix_json::{\"include\":$(echo $FILTERED_JSON)}"
-
+        
+    outputs:
+      matrix_json: ${{ steps.matrix.outputs.matrix_json }}
 
   echo:
     needs: [ fetch, setMatrix ]
     runs-on: ubuntu-20.04
     steps:
-      - run: echo "${{ needs.setMatrix.outputs.matrix_json }} "
+      - run: echo ${{ needs.setMatrix.outputs.matrix_json }}
 
   package:
-    needs: [ fetch, setMatrix ]
+    needs: [ fetch, setMatrix, echo ]
 
     runs-on: ${{ matrix.os }}
     strategy:
