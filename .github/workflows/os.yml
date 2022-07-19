@@ -27,28 +27,28 @@ jobs:
     needs: [fetch]
     runs-on: ubuntu-20.04
     steps:
-      run: |
-        MATRIX_JSON=$(cat << EOF
-        [
-          {
-            "runs_on": "ubuntu-20.04",
-            "skip": "{{ needs.fetch.outputs.skip_linux }}",
-            "runOn": "always"
-          },
-          {
-            "runs_on": "macOS-10.15",
-            "skip": "{{ needs.fetch.outputs.skip_mac }}",
-            "runOn": "always"
-          },
-          {
-            "runs_on": "windows-2022",
-            "skip": "{{ needs.fetch.outputs.skip_win }}",
-            "runOn": "always"
-          }
-        ]
-        EOF
-        )
-        echo "::set-output name=matrix_json::$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')"
+      - run: |
+          MATRIX_JSON=$(cat << EOF
+          [
+            {
+              "runs_on": "ubuntu-20.04",
+              "skip": "{{ needs.fetch.outputs.skip_linux }}",
+              "runOn": "always"
+            },
+            {
+              "runs_on": "macOS-10.15",
+              "skip": "{{ needs.fetch.outputs.skip_mac }}",
+              "runOn": "always"
+            },
+            {
+              "runs_on": "windows-2022",
+              "skip": "{{ needs.fetch.outputs.skip_win }}",
+              "runOn": "always"
+            }
+          ]
+          EOF
+          )
+          echo "::set-output name=matrix_json::$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')"
 
 
   package:
@@ -62,4 +62,4 @@ jobs:
           ${{fromJson(needs.setMatrix.outputs.matrix_json)}}
 
     steps:
-      run: echo ciao
+      - run: echo ciao
