@@ -25,8 +25,10 @@ jobs:
       - name: Set up dependencies
         run: |
           sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
           sudo apt-get update
-          sudo apt install install -y --no-install-recommends winehq-stable=6.0.4~focal-1 wine-stable=6.0.4~focal-1 wine-stable-i386=6.0.4~focal-1 wine-stable-amd64=6.0.4~focal-1
+          sudo apt install --install-recommends winehq-stable=6.0.4~focal-1
       
 #       - name: install wine
 #         run: |
