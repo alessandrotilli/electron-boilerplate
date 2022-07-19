@@ -48,7 +48,7 @@ jobs:
           ]
           EOF
           )
-          FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.someValue | contains("true") | not) ]')
+          FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')
           echo "::set-output name=matrix_json::$(echo $FILTERED_JSON)"
 
 
