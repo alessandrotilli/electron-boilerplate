@@ -55,7 +55,7 @@ jobs:
     needs: [ fetch, setMatrix ]
     runs-on: ubuntu-20.04
     steps:
-      - run: echo "{{ needs.setMatrix.outputs.matrix_json }} "
+      - run: echo "${{ needs.setMatrix.outputs.matrix_json }} "
 
   package:
     needs: [ fetch, setMatrix ]
