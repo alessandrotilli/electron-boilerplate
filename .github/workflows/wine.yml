@@ -28,8 +28,10 @@ jobs:
       - name: install wine
         run: |
           sudo dpkg --add-architecture i386
+          sudo wget -nc -O /usr/share/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+          sudo wget -nc -P /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/focal/winehq-focal.sources
           sudo apt-get update
-          sudo apt-get install --install-recommends wine32 wine64
+          sudo apt install --install-recommends winehq-stable
       
 #       - name: install wine
 #         run: |
