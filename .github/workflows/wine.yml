@@ -7,6 +7,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   push:
+    paths:
+      - '.github/workgflows/wine.yml'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -20,21 +22,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: list sources
-        run: less /etc/apt/sources.list
-      
-      - name: reconfigure
+      - name: Fix GitHub's mess
         run: |
-          sudo dpkg --configure -a
+          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+          sudo apt-get update
+          sudo apt-get install -y --allow-downgrades libpcre2-8-0/focal libpcre2-16-0/focal libpcre2-32-0/focal libpcre2-posix2/focal
 
-      - name: install wine
+      - name: Set up dependencies
         run: |
-          sudo dpkg --add-architecture i386 
-          wget -nc https://dl.winehq.org/wine-builds/winehq.key
-          sudo apt-key add winehq.key
-          sudo add-apt-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt update && sudo apt upgrade
-          sudo apt install --install-recommends winehq-stable
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt install software-properties-common
+          sudo apt-get install -y wine-stable
       
 #       - name: install wine
 #         run: |
