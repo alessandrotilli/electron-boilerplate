@@ -49,7 +49,7 @@ jobs:
           EOF
           )
           FILTERED_JSON=$(echo "$MATRIX_JSON" | jq  '[ .[] | select(.skip | contains("true") | not) ]')
-          echo "::set-output name=matrix_json::$(echo $FILTERED_JSON)"
+          echo "::set-output name=matrix_json::{\"include\":$(echo $FILTERED_JSON)}"
 
 
   echo:
