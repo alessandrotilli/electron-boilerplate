@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       app_platforms:
-        required: true
+        required: false
         default: 'wml'
+
+  push:
+    paths:
+      - '**/os.yml'
         
 jobs:
   fetch:
