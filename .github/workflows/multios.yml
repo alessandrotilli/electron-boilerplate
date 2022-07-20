@@ -23,8 +23,10 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/tags)
           echo "$JSON"
-          echo "$JSON" |
-            jq '.[] | select(.name ) | [ .name, .tarball_url ] | @csv' |
+          JSON_F=$(echo "$JSON" |
+            jq '.[] | select(.name ) | [ .name, .tarball_url ] | @csv')
+          echo "$JSON_F"
+          echo "$JSON_F" |
             tr -d '"\' |
             while IFS=$',' read -r name tarball_url; do
               curl -L \
