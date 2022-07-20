@@ -44,3 +44,7 @@ jobs:
         run: |
           tar -xf sample.tar.gz
         working-directory: out
+        
+      - name: zip
+        run: |
+          zip -r -X -y -9 -q out.zip out
