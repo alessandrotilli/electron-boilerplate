@@ -48,4 +48,4 @@ jobs:
       - name: zip
         shell: bash
         run: |
-          zip -r -X -y -9 -q out.zip out
+          Start-Process 'C:\Program Files\7-Zip\7z' -ArgumentList 'a -mx9 out.zip out\.'
