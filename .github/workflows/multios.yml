@@ -16,8 +16,10 @@ jobs:
     steps:
       - name: run commmand
         shell: bash
+        id: download
         run: |
           mkdir out
+          echo "::set-output name=download-path::$(echo $(pwd)/out)"
           JSON=$(curl \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -36,3 +38,8 @@ jobs:
             
       - name: list dir
         run: ls -R out
+      
+      - name: untar
+        run: |
+          tar -xf 0.0.1
+        working-directory: ${{steps.download.outputs.download-path}}
