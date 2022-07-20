@@ -26,6 +26,8 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt install aptitude
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
           sudo aptitude install winehq-stable
       
 #       - name: install wine
