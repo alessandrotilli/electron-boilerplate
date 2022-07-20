@@ -46,6 +46,10 @@ jobs:
         working-directory: out
         
       - name: zip
-        shell: bash
+        if: matrix.os != 'windows-2022'
+        run: zip -r -X -y -9 -q out.zip out/.
+          
+      - name: 7zip
+        if: matrix.os == 'windows-2022'
         run: |
           Start-Process 'C:\Program Files\7-Zip\7z' -ArgumentList 'a -mx9 out.zip out\.'
