@@ -33,7 +33,7 @@ jobs:
             while IFS=$',' read -r name tarball_url; do
               curl -L \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-                -H 'Accept: application/octet-stream' $tarball_url > "out/$name" ;
+                -H 'Accept: application/octet-stream' $tarball_url > "out/$name.tar.gz" ;
             done
             
       - name: list dir
@@ -41,5 +41,5 @@ jobs:
       
       - name: untar
         run: |
-          tar -xf 0.0.1
+          tar -xf 0.0.1.tar.gz
         working-directory: ${{steps.download.outputs.download-path}}
