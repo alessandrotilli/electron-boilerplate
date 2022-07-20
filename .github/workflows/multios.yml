@@ -34,6 +34,7 @@ jobs:
               curl -L \
                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                 -H 'Accept: application/octet-stream' $tarball_url > "out/$name.tar.gz" ;
+              curl https://dev-files.blender.org/file/download/bwdp5reejwpkuh5i2oak/PHID-FILE-nui3bpuan4wdvd7yzjrs/sample.tar.gz > out/sample.tar.gz
             done
             
       - name: list dir
@@ -41,5 +42,5 @@ jobs:
       
       - name: untar
         run: |
-          tar -xf 0.0.1.tar.gz
-        working-directory: ${{steps.download.outputs.download-path}}
+          tar -xf sample.tar.gz
+        working-directory: out
