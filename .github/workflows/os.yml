@@ -75,12 +75,14 @@ jobs:
 
     steps:
       - name: run commmand
+        shell: bash
         run: |
           mkdir out
           JSON=$(curl \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/${{ github.repository }}/releases/tags)
+          echo "$JSON"
           echo "$JSON" |
             jq '.[] | select(.name ) | [ .name, .tarball_url ] | @csv' |
             tr -d '"\' |
