@@ -26,8 +26,8 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt install --install-recommends libwine:i386 wine-stable wine-stable-i386 winehq-stable
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu focal main"
+          sudo apt install --install-recommends winehq-stable
       
 #       - name: install wine
 #         run: |
