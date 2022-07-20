@@ -24,7 +24,8 @@ jobs:
 
       - name: Set up dependencies
         run: |
-          sudo apt install --install-recommends wine wine32
+          sudo dpkg --add-architecture i386
+          sudo apt install wine wine32
       
 #       - name: install wine
 #         run: |
