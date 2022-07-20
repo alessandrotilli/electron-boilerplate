@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: set env
         shell: bash
-        run: echo "FOO=bar" >> $GITHUB_ENV
+        run: echo "APP_FOO=out" >> $GITHUB_ENV
 
       - name: print env
         shell: bash
-        run: echo "$FOO"
+        run: echo "$APP_FOO"
 
       - name: run commmand
         shell: bash
@@ -51,14 +51,15 @@ jobs:
       - name: untar
         run: |
           tar -xf sample.tar.gz
-        working-directory: out
+        working-directory: ${{ env.APP_FOO }}
         
       - name: zip
         if: matrix.os != 'windows-2022'
         run: zip -r -X -y -9 -q out.zip .
-        working-directory: out
+        working-directory: ${{ env.APP_FOO }}
           
       - name: 7zip
         if: matrix.os == 'windows-2022'
-        run: Start-Process 'C:\Program Files\7-Zip\7z' -ArgumentList 'a -mx9 out.zip .'
-        working-directory: out
+        shell: bash
+        run: '"/c/Program Files/7-Zip/7z" a -mx9 out.zip .'
+        working-directory: ${{ env.APP_FOO }}
