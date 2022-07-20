@@ -47,9 +47,10 @@ jobs:
         
       - name: zip
         if: matrix.os != 'windows-2022'
-        run: zip -r -X -y -9 -q out.zip out/.
+        run: zip -r -X -y -9 -q out.zip .
+        working-directory: out
           
       - name: 7zip
         if: matrix.os == 'windows-2022'
-        run: |
-          Start-Process 'C:\Program Files\7-Zip\7z' -ArgumentList 'a -mx9 out.zip out\.'
+        run: Start-Process 'C:\Program Files\7-Zip\7z' -ArgumentList 'a -mx9 out.zip .'
+        working-directory: out
