@@ -74,4 +74,21 @@ jobs:
           ${{fromJson(needs.setMatrix.outputs.matrix_json).include}}
 
     steps:
-      - run: echo ciao
+      - name: run commmand
+        run: |
+          mkdir out
+          JSON=$(curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/tags)
+          echo "$JSON" |
+            jq '.[] | select(.name ) | [ .name, .tarball_url ] | @csv' |
+            tr -d '"\' |
+            while IFS=$',' read -r name tarball_url; do
+              curl -L \
+                -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                -H 'Accept: application/octet-stream' $tarball_url > "out/$name" ;
+            done
+            
+      - name: list dir
+        run: ls -R out
