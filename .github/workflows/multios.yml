@@ -1,0 +1,36 @@
+name: multi os test
+
+on:
+  push:
+    paths:
+      - '**/multios.yml'
+        
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-20.04', 'windows-2022']
+        
+    steps:
+      - name: run commmand
+        shell: bash
+        run: |
+          mkdir out
+          JSON=$(curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/tags)
+          echo "$JSON"
+          echo "$JSON" |
+            jq '.[] | select(.name ) | [ .name, .tarball_url ] | @csv' |
+            tr -d '"\' |
+            while IFS=$',' read -r name tarball_url; do
+              curl -L \
+                -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                -H 'Accept: application/octet-stream' $tarball_url > "out/$name" ;
+            done
+            
+      - name: list dir
+        run: ls -R out
