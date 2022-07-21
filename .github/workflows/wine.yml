@@ -25,7 +25,9 @@ jobs:
       - name: Set up dependencies
         run: |
           sudo dpkg --add-architecture i386
-          sudo apt install wine32
+          sudo apt install wine-development
+          sudo apt-get install wine32-development
+          
       
 #       - name: install wine
 #         run: |
