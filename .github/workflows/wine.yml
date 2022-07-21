@@ -30,11 +30,7 @@ jobs:
 
       - name: Set up dependencies
         run: |
-          sudo dpkg --add-architecture i386
-          wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/Release.key -O Release.key -O- | sudo apt-key add -
-          sudo apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_20.04/ ./'
-          sudo apt-get update
-          sudo apt install --install-recommends winehq-stable
+          sudo apt install -y playonlinux
           
       
 #       - name: install wine
