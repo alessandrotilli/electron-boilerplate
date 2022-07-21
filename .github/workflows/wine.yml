@@ -49,4 +49,4 @@ jobs:
       - name: build and package
         run: |
           yarn build
-          yarn package -wl
+          yarn package -w
