@@ -24,13 +24,12 @@ jobs:
 
       - name: Set up dependencies
         run: |
-          NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew tap homebrew/cask-versions
-          brew install --cask wine-stable
+          sudo dpkg --add-architecture i386
+          sudo apt install wine32
       
 #       - name: install wine
 #         run: |
-#           sudo dpkg --add-architecture i386
+#           sudo dpkg --add-architecture i386sudo apt install wine32
 #           wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
 #           sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
 #           sudo apt install --install-recommends winehq-stable
